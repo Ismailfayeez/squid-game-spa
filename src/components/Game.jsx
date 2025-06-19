@@ -17,7 +17,7 @@ import RedLight from '../assets/redLight.mp3'
 import GreenLight from '../assets/greenLight.mp3'
 import Buzzer from '../assets/buzzer.mp3'
 import DollSong from '../assets/dollSong.mp3'
-import { GameArena } from '../game-objects/Game'
+import { GameArena } from '../game-objects/game'
 
 export const Game = ({ data, inputMode, handleInput, handleFinish }) => {
     const ref = useRef(null)
