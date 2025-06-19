@@ -30,14 +30,13 @@ export class Player {
         this.frameX = this.posX + this.x * this.fpm
         this.frameY = this.posY + this.y
         this.status = status
-        this.playerDead = new PlayerDead(game)
+        this.playerDead = new PlayerDead(game, id)
 
         if (this.frameY + this.totalHeight > game.height)
             this.frameY = game.height - this.totalHeight
         else if (this.frameY < this.boundary) this.frameY = this.boundary
     }
     draw() {
-        console.log(this.frameX, this.frameY, '(this.frameX, this.frameY')
         if (this.status === 'DEAD')
             return this.playerDead.draw(this.frameX, this.frameY)
 
@@ -67,7 +66,6 @@ export class Player {
         this.ctx.translate(0, this.fontHeight)
 
         // draw player head
-
         const imageId = this.id % 8
         const head = this.id < 8 ? heads1 : heads2
         const imageWidth = head.naturalWidth / 8

@@ -20,12 +20,9 @@ export class PlayerTiles {
         this.timeStamp = Date.now()
     }
     draw() {
-        console.log(this.sides, 'sides')
         if (this.isUpdating && this.fpu === this.currentFrame) {
-            console.log('called inside')
             this.currentFrame = 0
             this.isUpdating = false
-            console.log('called inside', this.isUpdating)
         }
         if (this.isUpdating && this.currentFrame == 0) {
             const audio = document.getElementById('notify')

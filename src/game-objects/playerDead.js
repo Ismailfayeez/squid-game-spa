@@ -1,8 +1,9 @@
 import { Bullet } from './bullet'
 
 export class PlayerDead {
-    constructor(game) {
+    constructor(game, id) {
         this.game = game
+        this.id = id
         this.ctx = game.ctx
         this.shooters = game.shooters
         this.deadStatus = 'NOT_SHOT'
@@ -11,9 +12,6 @@ export class PlayerDead {
         this.bullet = new Bullet(this)
     }
     draw(x, y) {
-        const img = document.getElementById('player-dead-v2')
-        const headImg = document.getElementById('heads')
-        const bloodImg = document.getElementById('blood')
         this.bullet.play()
         this.bullet.draw(x, y)
 
@@ -68,12 +66,19 @@ export class PlayerDead {
             },
         }
 
+        // player head
+        const heads1 = document.getElementById('heads1')
+        const heads2 = document.getElementById('heads2')
+        const imgId = this.id % 8
+        const headImg = this.id < 8 ? heads1 : heads2
+        const imgWidth = headImg.naturalWidth / 8
+        const imgHeight = headImg.naturalHeight
+
         const head = headPos[Math.floor(this.frameX)]
 
         this.ctx.save()
         this.ctx.translate(x, y)
         this.ctx.save()
-
         this.ctx.translate(
             headWidth / 2 + head.x,
             headHeight / 2 + head.y + headHeight * 0.2
@@ -81,18 +86,21 @@ export class PlayerDead {
         this.ctx.rotate((head.angle * Math.PI) / 180)
         this.ctx.drawImage(
             headImg,
+            imgId * imgWidth,
             0,
-            0,
-            150,
-            200,
+            imgWidth,
+            imgHeight,
             -headHeight / 2,
             -headWidth / 2,
             headWidth,
             headHeight
         )
         this.ctx.restore()
+
+        // player body
+        const bodyImg = document.getElementById('player-dead')
         this.ctx.drawImage(
-            img,
+            bodyImg,
             374 * Math.floor(this.frameX),
             0,
             374,
@@ -103,6 +111,9 @@ export class PlayerDead {
             bodyHeight
         )
         this.ctx.save()
+        // blood
+        const bloodImg = document.getElementById('blood')
+
         this.ctx.translate(
             headWidth / 2 + head.x - (91 / this.size) * 0.1,
             headHeight / 2 + head.y + (91 / this.size) * 0.3

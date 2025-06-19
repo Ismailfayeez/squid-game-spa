@@ -33,11 +33,14 @@ export const Session = ({ setLocation }) => {
         status,
         currentPlayerStatus
     )
-    const { mode, VITE_API_URL } = import.meta.env
-    const baseUrl = mode === 'production' ? VITE_API_URL : VITE_API_URL
+    const { MODE, VITE_API_URL } = import.meta.env
+
+    const protocol = MODE === 'production' ? 'wss' : 'ws'
+    const domain = MODE === 'production' ? VITE_API_URL : 'localhost:3000'
+    const baseUrl = `${protocol}://${domain}`
 
     useEffect(() => {
-        socketRef.current = new WebSocket(`wss://${baseUrl}/game`)
+        socketRef.current = new WebSocket(`${baseUrl}/game`)
 
         socketRef.current.onmessage = ({ data }) =>
             dispatch({ data: JSON.parse(data) })

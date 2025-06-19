@@ -1,6 +1,5 @@
 export class InputHandler {
     constructor(game, inputMode, handleInput) {
-        console.log(inputMode, 'inputMode1')
         this.currentPlayer = game.players.players[game.data.me.name]
         this.handleInput = handleInput
         this.inputMode = inputMode
@@ -32,7 +31,6 @@ export class InputHandler {
     }
 
     validate() {
-        console.log(this.inputMode, 'this.inputModevalida')
         if (this.inputMode === 'camera') this.triggerAction()
     }
 }

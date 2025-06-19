@@ -1,9 +1,8 @@
 const { MODE, VITE_API_URL } = import.meta.env
 
-const baseUrl =
-    MODE === 'production'
-        ? `https://${VITE_API_URL}`
-        : `https://${VITE_API_URL}`
+const protocol = MODE === 'production' ? 'https' : 'http'
+const domain = MODE === 'production' ? VITE_API_URL : 'localhost:3000'
+const baseUrl = `${protocol}://${domain}`
 
 export const fetchData = async (body, method = 'GET') => {
     try {

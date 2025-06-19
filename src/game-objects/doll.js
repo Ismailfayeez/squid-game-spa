@@ -19,7 +19,6 @@ export class Doll {
         const dollBackImg = document.getElementById('doll-back')
         const treeImg = document.getElementById('tree')
         const doll = isDollWatching ? dollBackImg : dollImg
-
         this.ctx.drawImage(
             doll,
             this.x,
