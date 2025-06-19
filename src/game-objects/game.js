@@ -38,12 +38,12 @@ export class GameArena {
     draw() {
         this.background.draw()
         this.endLine.draw()
+        this.notification.draw()
         this.timer.draw()
 
-        this.players.draw()
         this.doll.draw()
         this.shooters.draw()
-        this.notification.draw()
+        this.players.draw()
     }
     update(data) {
         this.data = data
