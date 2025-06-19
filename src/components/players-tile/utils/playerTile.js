@@ -51,7 +51,7 @@ export class PlayerTile {
             this.ctx.textBaseline = 'top'
             this.ctx.textAlign = 'center'
             this.ctx.fillStyle = '#b0f207'
-            this.ctx.fillText('fayeez', 0, this.fontPos)
+            this.ctx.fillText(player?.name, 0, this.fontPos)
             this.ctx.restore()
         }
 
