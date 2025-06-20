@@ -22,7 +22,7 @@ export const Login = ({ setLocation }) => {
         const { name, code } = input
         const { res } = await fetchData(
             { name, ...(joinGame ? { code } : {}) },
-            joinGame ? 'PATCH' : 'POST'
+            joinGame ? 'PUT' : 'POST'
         )
 
         if (res.ok) setLocation('game')
