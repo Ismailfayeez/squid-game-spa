@@ -15,7 +15,7 @@ export const Score = ({ players }) => {
         status: 'ALIVE',
     }))
     const rankingPlayers = playersList
-        .filter((player) => player.status === 'ALIVE')
+        .filter((player) => player.status === 'FINISHED')
         .sort((a, b) => a.timestamp - b.timestamp)
         .slice(0, 3)
         .map(({ name }, index) => [index + 1, name, `${PRIZES[index]} usd`])

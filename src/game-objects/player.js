@@ -79,7 +79,7 @@ export class Player {
             0,
             headImgWidth,
             headImgHeight,
-            this.bodyWidth - this.headDrawWidth - 1,
+            this.bodyWidth - this.headDrawWidth,
             0,
             this.headDrawWidth,
             this.headDrawHeight

@@ -28,7 +28,7 @@ export class Notification {
             if (['STARTED', 'ENDED'].includes(this.status)) song = 'buzzer'
             if (song) {
                 const audio = document.getElementById(song)
-                audio.volume = 0.1
+                audio.volume = song == 'buzzer' ? 0.3 : 0.5
                 audio?.play()
             }
         }

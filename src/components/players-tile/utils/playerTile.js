@@ -23,7 +23,7 @@ export class PlayerTile {
         this.ctx.fillStyle = '#333233'
         this.ctx.fillRect(0, 0, this.width, this.height)
 
-        if (player?.status == 'ALIVE') {
+        if (player?.status == 'ALIVE' || player?.status == 'FINISHED') {
             this.ctx.save()
             this.ctx.translate(this.width / 2, this.height / 2)
             this.ctx.rotate((-45 * Math.PI) / 180)
