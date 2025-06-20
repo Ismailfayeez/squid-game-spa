@@ -48,9 +48,10 @@ export class GameArena {
     update(data) {
         this.data = data
         this.timer.update()
+        this.doll.update()
+        this.input.validate()
         this.players.update()
         this.checkCollision()
-        this.input.validate()
         this.notification.update()
     }
     checkCollision() {

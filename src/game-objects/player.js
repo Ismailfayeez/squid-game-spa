@@ -10,17 +10,18 @@ export class Player {
         this.groundHeight = game.height - this.boundary
         this.rowCount = parseInt(game.data.rowCount)
         this.hpr = this.groundHeight / parseInt(this.rowCount)
+
         // player
         this.id = id
         this.name = name
         this.size = 4
         this.fontHeight = 15
         this.fontColor = COLORS[Math.floor(Math.random() * COLORS.length)]
-        this.headWidth = 75 / this.size
-        this.headHeight = 100 / this.size
+
         this.bodyWidth = 174 / this.size
         this.bodyHeight = 340 / this.size
         this.totalHeight = this.fontHeight + this.headHeight + this.bodyHeight
+
         // position
         this.fpm = 8
         this.x = parseInt(x)
@@ -36,15 +37,15 @@ export class Player {
             this.frameY = game.height - this.totalHeight
         else if (this.frameY < this.boundary) this.frameY = this.boundary
     }
+
     draw() {
         if (this.status === 'DEAD')
             return this.playerDead.draw(this.frameX, this.frameY)
 
-        const currentPosition = this.frameX - this.posX
-
         const heads1 = document.getElementById('heads1')
         const heads2 = document.getElementById('heads2')
         const body = document.getElementById('player')
+        const currentX = this.posX + this.x * this.fpm
 
         this.ctx.save()
         this.ctx.translate(this.frameX, this.frameY)
@@ -68,30 +69,36 @@ export class Player {
         // draw player head
         const imageId = this.id % 8
         const head = this.id < 8 ? heads1 : heads2
-        const imageWidth = head.naturalWidth / 8
-        const imageHeight = head.naturalHeight
+        const headImgWidth = head.naturalWidth / 8
+        const headImgHeight = head.naturalHeight
+        this.headDrawWidth = 75 / this.size
+        this.headDrawHeight = 100 / this.size
         this.ctx.drawImage(
             head,
-            imageId * imageWidth,
+            imageId * headImgWidth,
             0,
-            imageWidth,
-            imageHeight,
-            this.bodyWidth - this.headWidth,
+            headImgWidth,
+            headImgHeight,
+            this.bodyWidth - this.headDrawWidth - 1,
             0,
-            this.headWidth,
-            this.headHeight
+            this.headDrawWidth,
+            this.headDrawHeight
         )
-        this.ctx.translate(0, this.headWidth)
+        this.ctx.translate(0, this.headDrawWidth)
+
+        const completedFrames = this.fpm - (currentX - this.frameX)
+        const currentBodyPos =
+            completedFrames === this.fpm ? 0 : Math.floor(completedFrames / 4)
 
         // draw player body
         this.ctx.drawImage(
             body,
-            174 * Math.floor((currentPosition % 8) / 4),
+            174 * currentBodyPos,
             0,
             174,
             393,
             0,
-            -8 / this.size,
+            0,
             this.bodyWidth,
             this.bodyHeight
         )
@@ -101,6 +108,7 @@ export class Player {
         this.x = parseInt(x)
         this.y = parseInt(y)
         this.status = status
-        if (this.frameX < this.posX + this.x * this.fpm) this.frameX += 1
+        const newX = this.posX + this.x * this.fpm
+        if (this.frameX < newX) this.frameX += 1
     }
 }

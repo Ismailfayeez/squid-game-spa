@@ -1,5 +1,6 @@
 export class InputHandler {
     constructor(game, inputMode, handleInput) {
+        this.game = game
         this.currentPlayer = game.players.players[game.data.me.name]
         this.handleInput = handleInput
         this.inputMode = inputMode
@@ -13,13 +14,16 @@ export class InputHandler {
                 fpm,
                 status: playerStatus,
             } = this.currentPlayer || {}
+
+            const { dollUpdating } = this.game.doll
             const currentTime = Date.now()
             const nextInputTime = currentTime - this.timeStamp > 100
             if (
                 game.data.status === 'STARTED' &&
                 playerStatus === 'ALIVE' &&
                 nextInputTime &&
-                frameX === posX + x * fpm
+                frameX === posX + x * fpm &&
+                !dollUpdating
             ) {
                 handleInput(this.inputMode)
                 this.timeStamp = currentTime

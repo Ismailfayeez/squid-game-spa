@@ -14,6 +14,11 @@
     box-sizing: border-box;
 }
 
+body,
+html {
+    height: 100dvh;
+}
+
 html {
     font-size: 62.5%;
 }
@@ -111,6 +116,7 @@ input {
 .flex--gap {
     gap: 1rem;
 }
+
 .highlight {
     color: #fc035e;
 }

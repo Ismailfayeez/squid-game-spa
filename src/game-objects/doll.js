@@ -7,18 +7,18 @@ export class Doll {
         const midAreaY = Math.round(playAreaY * 0.5)
         this.x = game.width - 110
         this.y = game.boundary + midAreaY
-        this.dollWatching = game.data?.gameStat?.dollWatching
+        this.isDollWatching = game.data?.gameStat?.dollWatching
+        this.dollUpdating = false
     }
     draw() {
-        const isDollWatching = this.game.data?.gameStat?.dollWatching || false
-        const audio = isDollWatching ? 'redLight' : 'greenLight'
-        if (this.dollWatching !== isDollWatching) this.game.sound.play(audio)
-        this.dollWatching = isDollWatching
+        const audio = this.isDollWatching ? 'redLight' : 'greenLight'
+        if (this.dollUpdating) this.game.sound.play(audio)
 
         const dollImg = document.getElementById('doll')
         const dollBackImg = document.getElementById('doll-back')
         const treeImg = document.getElementById('tree')
-        const doll = isDollWatching ? dollBackImg : dollImg
+        const doll = this.isDollWatching ? dollBackImg : dollImg
+
         this.ctx.drawImage(
             doll,
             this.x,
@@ -34,5 +34,11 @@ export class Doll {
             640 / this.size
         )
     }
-    play() {}
+    update() {
+        const isDollWatching = this.game.data?.gameStat?.dollWatching || false
+        if (this.isDollWatching !== isDollWatching) {
+            this.isDollWatching = isDollWatching
+            this.dollUpdating = true
+        } else this.dollUpdating = false
+    }
 }
