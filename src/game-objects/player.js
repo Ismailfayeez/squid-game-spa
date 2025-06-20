@@ -4,6 +4,7 @@ import { PlayerDead } from './playerDead'
 export class Player {
     constructor(game, { name, x = 0, y = 0, posX = 0, posY, status, id }) {
         // size per players
+        this.game = game
         this.ctx = game.ctx
         this.boundary = game.boundary
         this.me = game.data.me
@@ -31,6 +32,8 @@ export class Player {
         this.frameX = this.posX + this.x * this.fpm
         this.frameY = this.posY + this.y
         this.status = status
+        this.playerMoving = false
+        this.hidePlayer = false
         this.playerDead = new PlayerDead(game, id)
 
         if (this.frameY + this.totalHeight > game.height)
@@ -39,6 +42,7 @@ export class Player {
     }
 
     draw() {
+        if (this.hidePlayer) return
         if (this.status === 'DEAD')
             return this.playerDead.draw(this.frameX, this.frameY)
 
@@ -71,6 +75,7 @@ export class Player {
         const head = this.id < 8 ? heads1 : heads2
         const headImgWidth = head.naturalWidth / 8
         const headImgHeight = head.naturalHeight
+
         this.headDrawWidth = 75 / this.size
         this.headDrawHeight = 100 / this.size
         this.ctx.drawImage(
@@ -109,6 +114,13 @@ export class Player {
         this.y = parseInt(y)
         this.status = status
         const newX = this.posX + this.x * this.fpm
-        if (this.frameX < newX) this.frameX += 1
+        const { lineStart } = this.game.endLine
+
+        if (newX > lineStart + 20) this.hidePlayer = true
+
+        if (this.frameX < newX) {
+            this.playerMoving = true
+            this.frameX += 1
+        } else this.playerMoving = false
     }
 }

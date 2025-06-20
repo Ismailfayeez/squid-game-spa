@@ -4,29 +4,29 @@ export class InputHandler {
         this.currentPlayer = game.players.players[game.data.me.name]
         this.handleInput = handleInput
         this.inputMode = inputMode
-        this.timeStamp = 0
+        this.previousX
 
         this.triggerAction = () => {
             const {
-                frameX,
-                posX,
-                x,
-                fpm,
                 status: playerStatus,
+                playerMoving,
+                hidePlayer,
+                x,
             } = this.currentPlayer || {}
 
-            const { dollUpdating } = this.game.doll
-            const currentTime = Date.now()
-            const nextInputTime = currentTime - this.timeStamp > 100
+            const isSameInput = x === this.previousX
+
+            const isActivePlayer =
+                game.data.status === 'STARTED' && playerStatus !== 'DEAD'
+
             if (
-                game.data.status === 'STARTED' &&
-                playerStatus === 'ALIVE' &&
-                nextInputTime &&
-                frameX === posX + x * fpm &&
-                !dollUpdating
+                isActivePlayer &&
+                !isSameInput &&
+                !playerMoving &&
+                !hidePlayer
             ) {
-                handleInput(this.inputMode)
-                this.timeStamp = currentTime
+                const response = handleInput(this.inputMode)
+                if (response) this.previousX = x
             }
         }
 

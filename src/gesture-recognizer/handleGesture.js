@@ -8,6 +8,7 @@ export const handleGesture = (video, handler) => {
         const categoryScore = parseFloat(
             results.gestures[0][0].score * 100
         ).toFixed(2)
-        if (categoryName == 'Pointing_Up' && categoryScore > 70) handler()
+        if (categoryName == 'Pointing_Up' && categoryScore > 70)
+            return handler()
     }
 }

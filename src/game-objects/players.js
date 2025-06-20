@@ -19,7 +19,15 @@ export class Players {
     }
     draw() {
         const { players = {} } = this.game.data?.gameStat || {}
-        Object.keys(players).map((player) => this.players[player].draw())
+
+        const sortedPlayers = Object.keys(players)
+            .map((name) => ({
+                name,
+                ...players[name],
+            }))
+            .sort((a, b) => a.y - b.y)
+
+        sortedPlayers.map(({ name }) => this.players[name].draw())
     }
 
     update() {

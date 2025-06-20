@@ -67,14 +67,16 @@ export const Session = ({ setLocation }) => {
         const walkSound = document.getElementById('walk')
         walkSound.playbackRate = 16
         walkSound.play()
+        return 1
     }
 
     const handleFinish = () =>
         socketRef.current.send(JSON.stringify({ action: FINISHED }))
 
     const handleInput = (inputMode) => {
-        if (inputMode === 'camera') handleGesture(videoRef.current, handleMove)
-        else handleMove()
+        if (inputMode === 'camera')
+            return handleGesture(videoRef.current, handleMove)
+        else return handleMove()
     }
 
     const render = () => {
