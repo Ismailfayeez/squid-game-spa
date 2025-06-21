@@ -1,5 +1,5 @@
 import React from 'react'
-import ScoreBg from '../assets/ScoreBg.png'
+import ScoreBg from '../assets/scoreBg.webp'
 import { PlayersTile } from './players-tile/PlayersTile'
 import { useBgAudio } from '../hooks/useBgAudio'
 import { Table } from './ui/Table'

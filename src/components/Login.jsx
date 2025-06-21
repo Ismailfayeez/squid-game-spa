@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import sgBg from '../assets/sgBg.jpeg'
+import sgBg from '../assets/sgBg.webp'
 import { Tabs } from './ui/tabs/Tabs'
 import { Input } from './ui/Input'
 import { fetchData } from '../utils/fetchData'
