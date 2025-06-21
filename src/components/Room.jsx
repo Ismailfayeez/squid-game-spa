@@ -1,5 +1,5 @@
 import React from 'react'
-import wrBg from '../assets/wrBg.svg'
+import wrBg from '../assets/wrBg.webp'
 import { PlayersTile } from './players-tile/PlayersTile'
 import { NOT_STARTED, PREPARING } from '../constants'
 import { useBgAudio } from '../hooks/useBgAudio'
